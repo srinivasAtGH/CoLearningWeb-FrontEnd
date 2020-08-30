@@ -2,42 +2,36 @@
     import { stores } from "@sapper/app";
     import * as api from 'api.js';
     const userData = {
-        Id: 1,
-        username: "pbgurav",
-        email: "pbgurav@gmail.com",
-        hash: "e4ea89dd5af54632617daf7a5ae217287cdf7d39eee5a1d24fd8456b4c637c4f75d132eac5a23d2a06a60a398c0434eaa8b789d89b3fdcebfbd01e3ae86cc369c12e7038d79d9de9b43f890332a9ec17ca83f023c4dbb7f90ad67a288a9cc76720ef8934c78d9b95e5b51fb94b176cb7edc57a451462afa6e5914e25e578191d43cbdffd728ddc6502c035fc4d915b3d2544956422647ea04f5b8bf522087ca2c5383b525ad88ebe3068d65633d65849fc582f426f80daad5b0809e48d0ef63aeb803307b25fa578c403f11188bc7458565dce8565b7891151c9a44ca38392978b673e17f3c0e1aa8400696c77237e0f3502c6e4ffe412d711d9fe351125b257337b06e0e2ba2daa8436a42b23d791919901004bfa560c48d44ed9acc77910036a1b24d34234858591d941a8c22d969466100a22ccfcfe393bec0022bd83cb80e34cd80543efee71bd43e06c9f85026b0d74ffdd8f8f7f5fd0cb92a801fa1b22d6bb7efc50a27cc9f48f70900bb10c085e3800e1c6feae8d222c3534cb1bb2900f11d85d66a5bfe8e14a88bc708784c0e7fc4a0af8926b242c355fe03f8e69594752e51e5e8e2a22538f32715dcc383e8e3deb65853ca2a39e4c6f21bbba624bd61c886c13e23dc4af51163386934f15d5fb0b1273c0d434ed178df4642479a64b896959ac3ead897bc4a551624ab19a28a66168dfc4b146eb6278800487534a",
-        salt: "d14c117e89cdc968b198b7416c71428e",
-        firstname: "Prasad",
-        lastname: "Gurav",
-        country: null,
-        state: null,
-        city: null,
-        emailprivacy: true,
-        phonenumber: null,
-        phonenumberprivacy: true,
-        whatsappnumber: null,
-        whatsappnumberprivacy: true,
-        connectionprivacy: true,
-        birthdate: null,
-        gender: 1,
-        occupation: null,
-        photo: null,
-        islearner: true,
-        isguide: true,
-        bio: null,
-        iscolearner: false,
-        istermsandconditionschecked: true,
-        isemailverified: false,
-        createdAt: "2020-07-25T17:05:54.005Z",
-        updatedAt: "2020-07-25T17:05:54.005Z",
-        Skills: [
-            {
-                skillname: "Gardening",
-                UserSkills: {
-                    "skilltype": 1
-                }
-            }
-        ]
+        "Id": 2,
+        "username": "prasad",
+        "email": "p@d.com",
+        "hash": "19ce325775cf80ec43b16531a849bbbd09f5e36d8ad1ea73da5322173337a6878fd05d776f98d112f14fa01676c4195cf3b8d4eeed7145e470c9fd921af5a84e46792090ccb590bcde53070241765571c088dd2c9641c7949d71f3cf85490438a322b59ba0527c0d68c938dbb0dbe310134b0ddfdbabb1dc25964a3dd5b05b5c1afb8e122586c9cef319395aaa564d3fb934aff3a8a4300513a55966274f35bc07f86981d39a7086cba4ccd45274ac4afb6b23e0c03b7eb143195fc1459ecc8d604f904737b3a1257e05c1908c2eab5709661473dc4eac829bc53f2b6d68eac19ebe405c7899d567f8fe62271d501f550e6e848a1f83c30391e5e538fa5427444a5359fe2182c0ce42f93f8aa56a45141bde88fa4b5350bd246488e0477f1e5542482bced1c4fd118a031e79c882bb5d325815c2ad48fd99c4025e16a9913d3d460865246eab1aefb3a98cf584f6bcb618a9316bd20c985563463915505d37f484851c4f46ff23538eadf55667f66e4569aea28b3da8ef46ef276119a8b3e25166e1c71f4cfe54f98e5abeb5d3dc983181f7c6cc7e065a30842f8fce0e32f8fb4fe4a7b661512e9fc6e9f071a7291fb5899ff30b11695c5d98d777b5c8c5d67c0d31f04d49398227b970ad1de72a27838721feec42d3c2b987e9dfe7e1003d1163b1640cda71c98d7092c64638b0b75a9c0a90e8c78f31fbb97fed2baacf519b",
+        "salt": "d9a1b3194fb16731c85439dc2757d1b1",
+        "firstname": "Prasad",
+        "lastname": "Gurav",
+        "country": null,
+        "state": null,
+        "city": null,
+        "emailprivacy": 1,
+        "phonenumber": null,
+        "phonenumberprivacy": 1,
+        "whatsappnumber": null,
+        "whatsappnumberprivacy": 1,
+        "birthdate": null,
+        "gender": "male",
+        "occupation": null,
+        "photo": null,
+        "islearner": true,
+        "isguide": true,
+        "bio": "Prasad is a 45-year-old former intern at a law firm who enjoys painting, meditation and drone photography. He is entertaining and smart.\r\nt is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.",
+        "iscolearner": true,
+        "istermsandconditionschecked": true,
+        "isemailverified": false,
+        "languages": null,
+        "guidingSkills": "Python",
+        "learningSkills": "Gardening",
+        "createdAt": "2020-08-29T16:54:01.348Z",
+        "updatedAt": "2020-08-29T16:54:01.348Z"
     };
     const { session, page } = stores();
     const {
@@ -52,11 +46,14 @@
         phonenumber,
         whatsappnumberprivacy,
         whatsappnumber,
-        bio
+        bio,
+        guidingSkills
     } = userData;
+    const skills = guidingSkills.includes(",") ? guidingSkills.split(",") : guidingSkills;
     const languages = "English, Hindi, Marathi";
     async function getData() {
         console.log($page.query);
+        console.log($session.user);
     }
     getData();
 </script>
@@ -88,9 +85,13 @@
                         <div class="aoe-container row">
                             <div class="aoe-span col-xs-1">AOE:</div>
                             <div class="col-xs-10">
-                                {#each userData.Skills as extertise, i}
-                                    <div>{(i+1)}. {extertise.skillname}</div>
-                                {/each}
+                                {#if guidingSkills.includes(",")}
+                                    {#each skills as extertise, i}
+                                        <div>{(i+1)}. {extertise}</div>
+                                    {/each}
+                                {:else}
+                                    <div>1. {skills}</div>
+                                {/if}
                             </div>
                         </div>
                         <div>

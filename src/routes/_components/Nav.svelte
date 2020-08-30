@@ -12,7 +12,7 @@
 
 <nav class="navbar navbar-light">
 	<div class="container">
-		<a rel='prefetch' class="navbar-brand" href=".">Learning Web</a>
+		<a rel='prefetch' class="navbar-brand" href="/Home">Learning Web</a>
 		<ul class="nav navbar-nav pull-xs-right">
 			{#if $session.user}
 				<li class="nav-item">

@@ -31,11 +31,11 @@
 				need_colearner: isCoLearner,
 				terms_and_conditions_checked: agreePolicy,
 				gender:"male",
-				skill_to_guide: guidingArea,
-        skill_to_learn: learningArea,
+				guidingskills: guidingArea,
+        learningskills: learningArea,
 				phonenumber: phoneNo
 			}
-		);
+    );
     console.log(response);
 		// TODO handle network errors
 		if (response.errors != undefined) {

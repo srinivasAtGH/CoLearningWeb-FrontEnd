@@ -13,13 +13,12 @@
 		peopleList = peopleList;
 	}
 	async function getData() {
-		console.log($session.user.access_token);
+		if($session.user == undefined) goto("/login");
 		const userList = await api.get('users', $session.user.access_token);
 		console.log(userList);
 		peopleList = userList;
 	}
 	getData();
-
 </script>
 
 <style>
@@ -42,12 +41,6 @@
 }
 .help-text-container{
 	padding-top: 10px;
-}
-.send-request-container{
-	text-align: center;
-}
-.send-requests{
-	width: 50%;
 }
 </style>
 
@@ -87,9 +80,6 @@
 					{#each peopleList as list, i}
 						<SearchList listData={list} onDismiss={onClose} index={i} selection={selection} />
 					{/each}
-				</div>
-				<div class="send-request-container">
-					<button type="button" class="btn btn-primary send-requests">Send Requests</button>
 				</div>
 			</div>
 		</div>
