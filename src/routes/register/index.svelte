@@ -7,6 +7,8 @@
 
   let username = "";
   let email = "";
+  let firstname = "";
+  let lastname = "";
   let password = "";
   let cnfpassword = "";
   let learningArea = "";
@@ -19,31 +21,30 @@
   let agreePolicy = false;
   let errorMessage = "";
 
-	async function submit(event) {
-		const response = await post(
-			`http://localhost:3100/api/register`, 
-			{
-				username: username,
-				password: password,
-        email: email,
-        available_to_mentor: isGuide,
-        need_mentoring: isLearner,
-				need_colearner: isCoLearner,
-				terms_and_conditions_checked: agreePolicy,
-				gender:"male",
-				guidingskills: guidingArea,
-        learningskills: learningArea,
-				phonenumber: phoneNo
-			}
-    );
+  async function submit(event) {
+    const response = await post(`http://localhost:3100/api/register`, {
+      username: username,
+      password: password,
+      email: email,
+      available_to_mentor: isGuide,
+      need_mentoring: isLearner,
+      need_colearner: isCoLearner,
+      terms_and_conditions_checked: agreePolicy,
+      gender: "male",
+      guidingskills: guidingArea,
+      learningskills: learningArea,
+      phonenumber: phoneNo,
+      firstname: firstname,
+      lastname: lastname
+    });
     console.log(response);
-		// TODO handle network errors
-		if (response.errors != undefined) {
-			errors = response.errors;
-		} else {
-			goto("/login");
-		}
-	}
+    // TODO handle network errors
+    if (response.errors != undefined) {
+      errors = response.errors;
+    } else {
+      goto("/login");
+    }
+  }
 </script>
 
 <style>
@@ -96,6 +97,20 @@
               type="text"
               placeholder="User name"
               bind:value={username} />
+          </fieldset>
+          <fieldset class="form-group">
+            <input
+              class="form-control form-control-lg"
+              type="firstname"
+              placeholder="First name"
+              bind:value={firstname} />
+          </fieldset>
+          <fieldset class="form-group">
+            <input
+              class="form-control form-control-lg"
+              type="lastname"
+              placeholder="Last name"
+              bind:value={lastname} />
           </fieldset>
           <fieldset class="form-group">
             <input
