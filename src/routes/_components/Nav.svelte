@@ -34,6 +34,11 @@
 					</a>
 				</li>
 				<li class="nav-item">
+					<a rel='prefetch' href="/receive-request" class="nav-link" class:active="{$page.path === '/receive-request'}">
+						Receive Request
+					</a>
+				</li>
+				<li class="nav-item">
 					<a rel='prefetch' href="/login" class="nav-link" on:click={logout}>
 						Log Out
 					</a>
