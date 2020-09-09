@@ -40,7 +40,7 @@
 	color: deepskyblue;
 	margin-left: 10px;
 }
-.aoe-span{
+.aoe-span{  
 	color: orange;
     font-weight: 600;
 }
@@ -76,9 +76,8 @@
         <div class="aoe-container row">
             <div class="aoe-span col-xs-1">AOE:</div>
             <div class="col-xs-10">
-                {#each listData.Skills as extertise, i}
-                    <div>{(i+1)}. {extertise.skillname}</div>
-                {/each}
+                    <div>{listData.learningSkills}</div>
+                    <div>{listData.guidingSkills}</div>
             </div>
         </div>
         <div class="details-container">

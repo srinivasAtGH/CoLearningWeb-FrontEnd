@@ -6,7 +6,7 @@ import session from 'express-session';
 import sessionFileStore from 'session-file-store';
 import * as sapper from '@sapper/server';
 
-const FileStore = sessionFileStore(session);
+const FileStore = new sessionFileStore(session);
 
 
 const { PORT, NODE_ENV } = process.env;
@@ -16,7 +16,7 @@ polka()
 	.use(bodyParser.json())
 	.use(session({
 		secret: 'conduit',
-		resave: false,
+		resave: true,
 		saveUninitialized: true,
 		cookie: {
 			maxAge: 31536000
@@ -29,8 +29,8 @@ polka()
 		compression({ threshold: 0 }),
 		sirv('static', { dev }),
 		sapper.middleware({
-			session: req => ({
-				user: req.session && req.session.user
+			session: (req) => ({
+				user: req.session.user
 			})
 		})
 	)

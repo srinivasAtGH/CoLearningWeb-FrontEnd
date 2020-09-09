@@ -2,24 +2,84 @@
 	import { goto, stores } from "@sapper/app";
 	import * as api from 'api.js';
 	import SearchList from './SearchList.svelte';
+	import ButtonBar from './ButtonBar.svelte'
 	
 	let searchText = '';
 	let selection = [];
 	const { session } = stores();
 	let peopleList = [];
+	let displayMode = "";
 
 	function onClose(index) {
 		peopleList.splice(index, 1);
 		peopleList = peopleList;
 	}
+
 	async function getData() {
+		console.log("getData called");
+		if($session.user.access_token === undefined)
+		{
+			goto('/login');
+		}
 		console.log($session.user.access_token);
 		const userList = await api.get('users', $session.user.access_token);
 		console.log(userList);
 		peopleList = userList;
+		displayMode = "SearchList"
 	}
-	getData();
 
+	if(displayMode === "") 
+	{
+		console.log("Calling get data");	
+		getData();
+	}
+
+	async function getSentRequests() {	
+		console.log("getsendrequests called");
+		if($session.user.access_token === undefined)
+		{
+			goto('/login');
+		}
+		console.log($session.user.access_token);
+		console.log($session.user.userid);
+		const connectionList = await api.get(`learning_connections?status=pending`, $session.user.access_token);
+		console.log(connectionList);
+		const listData = await connectionList.filter(conn => conn.mentee.id === $session.user.userid);
+    	console.log(listData);
+		peopleList = listData;
+		displayMode = "ViewSentRequestList"
+	}
+
+	async function getReceivedRequests() {	
+		console.log("getrecvdrequests called");
+		if($session.user.access_token === undefined)
+		{
+			goto('/login');
+		}
+		else
+		{
+			goto('/ReceiveReq');
+		}
+		/*console.log($session.user.access_token);
+		const connectionList = await api.get(`learning_connections?status=pending`, $session.user.access_token);
+		console.log(connectionList);
+		const listData = connectionList.filter(conn => conn.mentor.id === $session.user.userid);
+    	console.log(listData);
+		peopleList = listData;
+		displayMode = "ViewReceivedRequestList"*/
+	}
+
+	async function getConnections() {	
+		console.log("getrecvdrequests called");
+		if($session.user.access_token === undefined)
+		{
+			goto('/login');
+		}
+		else
+		{
+			goto('/Connection');
+		}
+	}
 </script>
 
 <style>
@@ -43,12 +103,6 @@
 .help-text-container{
 	padding-top: 10px;
 }
-.send-request-container{
-	text-align: center;
-}
-.send-requests{
-	width: 50%;
-}
 </style>
 
 <svelte:head>
@@ -57,8 +111,10 @@
 
 <div class="home-page">
 	<div class="container page">
+		<div class="divider-grey"></div>
 		<div class="row">
 			<div class="col-md-8 offset-md-2 col-xs-12">
+			<ButtonBar/>
 				<div class="input-group">
 					<div class="input-group-btn">
 					<button class="btn btn-default" type="submit">
@@ -68,14 +124,8 @@
 					<input type="text" class="form-control" placeholder="Search for the topic you wish to learn" bind:value={searchText}>
 				</div>
 				<hr />
-				<div class="row">
-					<div class="col-md-6">
-						<button type="button" class="btn full-width">View recieved requests</button>
-					</div>
-					<div class="col-md-6">
-						<button type="button" class="btn full-width">View sent requests</button>
-					</div>
-				</div>
+				
+				{#if displayMode === "SearchList"}
 				<div class="divider-grey"></div>
 				<p class="no-margin help-text-container">
 					<ion-icon name="globe-outline"></ion-icon>
@@ -88,9 +138,7 @@
 						<SearchList listData={list} onDismiss={onClose} index={i} selection={selection} />
 					{/each}
 				</div>
-				<div class="send-request-container">
-					<button type="button" class="btn btn-primary send-requests">Send Requests</button>
-				</div>
+				{/if}
 			</div>
 		</div>
 	</div>
