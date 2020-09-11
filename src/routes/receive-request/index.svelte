@@ -1,7 +1,7 @@
 <script>
 	import { goto, stores } from '@sapper/app';
-	import ListErrors from '../_components/ListErrors.svelte';
-	import { post } from 'utils.js';
+    import ListErrors from '../_components/ListErrors.svelte';
+    import * as api from 'api.js';
     import { createEventDispatcher } from 'svelte';
 
 	 let acceptText, declineText, username='Aniket',coLearnerUser ='Nilesh';
@@ -12,18 +12,29 @@
 	 let fluencyrating = '7/10 (self rated)';
 	 let dailyTimeSpendonLearningin = '90 min';
 	 let coLearnersPreferredMode = 'chat';
-	 
+	 let connectionDetail = { };
+     let learner = { };
+    let mentee ={};
+    let mentor ={};
 	const dispatch = createEventDispatcher();
 	let inProgress;
 	let errors;
 
 	const { session } = stores();
 
-	async function logout() {
-		await post(`auth/logout`);
-		$session.user = null;
-		goto('/');
+	async function getData() {
+        //token = $session.user.access_token;	
+        //console.log($session.user);	
+        connectionDetail = await api.get('learning_connections/'+ $session.user.userid , $session.user.access_token);
+        mentee= connectionDetail.mentee;
+        mentor = connectionDetail.mentor;
+		//user = await api.get('users/$($session.user.userid)' , token);
+		//learner = await api.get('users/8', token);
+        console.log(connectionDetail);
+        //console.log(learner);
 	}
+    getData();
+    
     function submit(event) {
 		dispatch('save', { image, username, bio, email, password }); 
 	}
@@ -48,18 +59,18 @@
 		<div class="row">
 			<div class="col-md-6 offset-md-3 col-xs-12">
 
-				<h1 class="text-xs-center">Request from..</h1>
+				<h1 class="text-xs-center">Received Request</h1>
 
 				<ListErrors {errors}/>
                 <form on:submit|preventDefault='{submit}'>
 	
                     <fieldset>
-                    <p class="text-warning">{coLearnerUser} wants to co-learn {learningdomain} with you:</p>
+                    <p class="text-warning">{mentor.name} wants to co-learn {connectionDetail.skillname} with you:</p>
                         <table class="table">		
                         <tbody>
                             <tr>
                                 <td>Learning Domain:</td>
-                                <td>{learningdomain}</td>
+                                <td>{connectionDetail.skillname}</td>
                             </tr>
                             <tr>
                                 <td>Connection String:</td>
@@ -75,14 +86,14 @@
                             </tr>
                             <tr>
                                 <td>fluency in {learningdomain}:</td>
-                                <td>{fluencyrating}</td>
+                                <td>{connectionDetail.skillfluency}</td>
                             </tr>
                             <tr>
-                                <td>Time {coLearnerUser} spend daily to learn {learningdomain}:</td>
-                                <td>{dailyTimeSpendonLearningin}</td>
+                                <td>Time {mentee.name} spend daily to learn {connectionDetail.skillname}:</td>
+                                <td>{connectionDetail.timecommitment}</td>
                             </tr>
                             <tr>
-                                <td>{coLearnerUser} preferred mode of communication:</td>
+                                <td>{mentee.name} preferred mode of communication:</td>
                                 <td>{coLearnersPreferredMode}</td>
                             </tr>
                         </tbody>

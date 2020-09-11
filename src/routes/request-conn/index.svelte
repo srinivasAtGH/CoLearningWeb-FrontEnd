@@ -38,19 +38,17 @@
 					"connectionType": 'learner',
 				}
 		 }, token );
-
-		 console.log(response);
-		 console.log(response.errors);
-		errors = response.errors;
+		
+		 errors = response.errors;
 		if (response.user) $session.user = response.user;
 		inProgress = false
 	}
 
 	async function getData() {
 		token = $session.user.access_token;
-		let service = 'users/'
-		
+		console.log($session.user);
 		user = await api.get('users/'+ $session.user.userid , token);
+		//user = await api.get('users/$($session.user.userid)' , token);
 		mentor = await api.get('users/8', token);
 		console.log(user);
 	}
