@@ -8,7 +8,6 @@
 	let selection = [];
 	const { session } = stores();
 	let peopleList = [];
-	let displayMode = "";
 
 	function onClose(index) {
 		peopleList.splice(index, 1);
@@ -28,14 +27,10 @@
 		);
 		console.log(userList);
 		peopleList = userList;
-		displayMode = "SearchList"
 	}
 
-	if(displayMode === "") 
-	{
 		console.log("Calling get data");	
 		getData();
-	}
 
 	async function getSentRequests() {	
 		console.log("getsendrequests called");
@@ -86,9 +81,6 @@
 </script>
 
 <style>
-  .full-width {
-    width: 100%;
-  }
   .divider-grey {
     width: 100%;
     padding: 0.2rem;
@@ -114,6 +106,7 @@
 
 <div class="home-page">
   <div class="container page">
+  <ButtonBar/>
     <div class="row">
       <div class="col-md-8 offset-md-2 col-xs-12">
         <div class="input-group">
@@ -129,7 +122,7 @@
             bind:value={searchText} />
         </div>
         <hr />
-        <div class="row">
+<!--<div class="row">
           <div class="col-md-6">
             <button type="button" class="btn full-width">
               View recieved requests
@@ -140,7 +133,7 @@
               View sent requests
             </button>
           </div>
-        </div>
+        </div>-->
         <div class="divider-grey" />
         <p class="no-margin help-text-container">
           <ion-icon name="globe-outline" />
@@ -152,11 +145,13 @@
         <div class="divider-grey" />
         <div class="search-list-container">
           {#each peopleList as list, i}
+		  	{#if list.Id != $session.user.userid}
             <SearchList
               listData={list}
               onDismiss={onClose}
               index={i}
               {selection} />
+			{/if}
           {/each}
         </div>
       </div>

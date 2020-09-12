@@ -4,7 +4,9 @@
     export let index;
     export let selection;
     const {guidingSkills} = listData;
-    const skills = guidingSkills.includes(",") ? guidingSkills.split(",") : guidingSkills;
+    let skills;
+    $: skills = listData.guidingSkills.includes(",") ? listData.guidingSkills.split(",") : listData.guidingSkills;
+    console.log("Skills:" + skills);
 </script>
 
 <style>
@@ -75,14 +77,14 @@
             <span class={`is-new-suggestion ${(listData.isNewSuggestion) ? '' : 'no-display'}`}>New Suggestion</span>
         </div>
         <div class="aoe-container row">
-            <div class="aoe-span col-xs-1">AOE:</div>
+            <div class="aoe-span col-xs-2">AOE:</div>
             <div class="col-xs-10">
             {#if guidingSkills.includes(",")}
-                {#each skills as extertise, i}
-                    <div>{(i+1)}. {extertise}</div>
+                {#each skills as expertise, i}
+                    <div>{(i+1)}.&nbsp;{expertise}</div>
                 {/each}
             {:else}
-                <div>1. {skills}</div>
+                <div>1.{skills}</div>
             {/if}
             </div>
         </div>

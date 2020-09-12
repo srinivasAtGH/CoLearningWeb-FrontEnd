@@ -1,6 +1,7 @@
 <script>
   import { goto, stores } from "@sapper/app";
   import ListErrors from "../_components/ListErrors.svelte";
+  import * as api from 'api.js';
   import { post } from "utils.js";
 
   const { session } = stores();
@@ -22,7 +23,7 @@
   let errorMessage = "";
 
   async function submit(event) {
-    const response = await post(`http://localhost:3100/api/register`, {
+    const response = await api.post(`register`, {
       username: username,
       password: password,
       email: email,
@@ -35,7 +36,7 @@
       learningskills: learningArea,
       phonenumber: phoneNo,
       firstname: firstname,
-      lastname: lastname
+      lastname: lastname,
     });
     console.log(response);
     // TODO handle network errors

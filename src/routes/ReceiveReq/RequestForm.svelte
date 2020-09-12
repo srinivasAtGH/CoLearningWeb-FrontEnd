@@ -18,19 +18,44 @@
 </script>-->
 
 <script>
-import { stores } from '@sapper/app';
+import { goto, stores } from '@sapper/app';
 import * as api from 'api.js';
 
 export let learningConnectionRequest;
 export let menteeDetails;
+
 let acceptText;
 let declineText;
 
 const { session } = stores();
 
-function submit(event) {
-		console.log("submit");
-	}
+ async function submit(event) {
+
+		 let notes = "";
+		 let command = "";
+		if(event.submitter.name === "accept")
+		{
+			notes = acceptText;
+			command = "accept";
+		}
+		else if(event.submitter.name === "reject")
+		{
+			notes = declineText;
+			command = "reject";
+		}
+
+		console.log("Notes:" + notes);
+		console.log("Command:" + command);
+		console.log("Learning Connection Id:" + learningConnectionRequest.id);
+		
+		const response = await api.put(`learning_connection/${learningConnectionRequest.id}/${command}`,
+		{
+			"notes": notes
+		}, $session.user.access_token );
+
+	goto('/Connection');
+	console.log('submit clicked');
+}
 
 </script>
 
@@ -84,7 +109,7 @@ function submit(event) {
 			<textarea class="form-control form-control-lg" rows="4" placeholder="Add your message here" bind:value={acceptText}/>
 			<p class="text-warning">{learningConnectionRequest.mentee.name} is open to share his/her ideas with his/her co-learners.</p>
 		</fieldset>			
-		<button class="btn btn-outline-primary">
+		<button class="btn btn-outline-primary" name="accept">
 				Accept request
 		</button>
 		<p class="text-primary">Once you accept the request your email id will be shared with {learningConnectionRequest.mentee.name}.</p>
@@ -93,7 +118,7 @@ function submit(event) {
 		<p class="text-danger">Don't want to accept the request? Please write down the reason so {learningConnectionRequest.mentee.name} can improve his/her skills.</p>
 			<textarea class="form-control form-control-lg" rows="2" placeholder= "reason to decline request?" bind:value={declineText}/>
 		</fieldset>
-		<button class="btn btn-outline-danger">
+		<button class="btn btn-outline-danger" name="reject">
 				Decline request
 		</button>
 	</fieldset>
