@@ -3,6 +3,8 @@
     export let onDismiss;
     export let index;
     export let selection;
+    const {guidingSkills} = listData;
+    const skills = guidingSkills.includes(",") ? guidingSkills.split(",") : guidingSkills;
 </script>
 
 <style>
@@ -59,7 +61,6 @@
 
 <div class="search-list row">
     <div class="col-sm-1">
-        <!-- <input type="checkbox" class="form-check-input selection-checkbox" bind:group={selection} value={index} /> -->
     </div>
     <div class="image-container col-sm-2">
         <img src="images/temp.jpg" class="img-circle" alt="Profile" width="80" height="80">
@@ -76,15 +77,19 @@
         <div class="aoe-container row">
             <div class="aoe-span col-xs-1">AOE:</div>
             <div class="col-xs-10">
-                    <div>{listData.learningSkills}</div>
-                    <div>{listData.guidingSkills}</div>
+            {#if guidingSkills.includes(",")}
+                {#each skills as extertise, i}
+                    <div>{(i+1)}. {extertise}</div>
+                {/each}
+            {:else}
+                <div>1. {skills}</div>
+            {/if}
             </div>
         </div>
         <div class="details-container">
-            <a href="/request-connect?reqId={listData.username}">
-                <button type="button" class="btn btn-info btn-sm">Request to connect</button>
+            <a href="/mentor-profile?mentorId={listData.Id}">
+                <button type="button" class="btn btn-info btn-sm">View Profile</button>
             </a>
-            
         </div>
     </div>
     <div class="remove">
